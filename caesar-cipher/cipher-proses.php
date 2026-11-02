@@ -44,19 +44,16 @@ function caesarCipher($teks, $kunci, $modus) {
     return $hasil;
 }
 
-
 // Memastikan data dikirim menggunakan POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: index.php");
     exit();
 }
 
-
 // Mengambil data dari formulir
 $teks_input = trim($_POST['teks'] ?? '');
 $kunci_raw = $_POST['kunci'] ?? '';
 $aksi_input = $_POST['aksi'] ?? '';
-
 
 // Validasi teks kosong
 if ($teks_input === '') {
@@ -65,7 +62,6 @@ if ($teks_input === '') {
     exit();
 
 }
-
 
 // Validasi kunci harus angka
 $kunci_input = filter_var($kunci_raw, FILTER_VALIDATE_INT);
@@ -77,7 +73,6 @@ if ($kunci_input === false) {
 
 }
 
-
 // Validasi kunci antara 1 dan 25
 if ($kunci_input < 1 || $kunci_input > 25) {
 
@@ -85,7 +80,6 @@ if ($kunci_input < 1 || $kunci_input > 25) {
     exit();
 
 }
-
 
 // Validasi pilihan aksi
 if ($aksi_input !== 'enkripsi' && $aksi_input !== 'dekripsi') {
@@ -95,14 +89,12 @@ if ($aksi_input !== 'enkripsi' && $aksi_input !== 'dekripsi') {
 
 }
 
-
 // Memproses Caesar Cipher
 $hasil_akhir = caesarCipher(
     $teks_input,
     $kunci_input,
     $aksi_input
 );
-
 
 // Menyimpan hasil ke file TXT
 $lokasi_file = __DIR__ . '/hasil.txt';
@@ -113,7 +105,6 @@ if (file_put_contents($lokasi_file, $hasil_akhir) === false) {
     exit();
 
 }
-
 
 // Kembali ke halaman utama
 header("Location: index.php?status=berhasil");
